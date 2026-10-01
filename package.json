@@ -1,6 +1,6 @@
 {
   "name": "environment-manager",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "description": "面向 macOS 和 Linux 的 Shell 环境变量管理工具。",
   "keywords": [],

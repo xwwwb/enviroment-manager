@@ -158,7 +158,7 @@ function removeBlock() {
         </div>
         <p class="list-hint">
           <el-icon><Rank /></el-icon>
-          <span>PATH 追加顺序按环境块排列，可拖动调整环境块位置</span>
+          <span>PATH 优先顺序按环境块排列，可拖动调整环境块位置</span>
         </p>
       </section>
       <section v-if="selected" class="panel editor-panel">

@@ -78,8 +78,7 @@ function check() {
           <pre class="profile-code"><code class="hljs" v-html="profileHtml"></code></pre>
         </template>
         <div v-else class="path-list">
-          <p class="muted small">保留原有 PATH，再按环境块顺序追加目录；重复配置只保留首次出现项。</p>
-          <div v-if="store.preview.paths.length" class="path-origin">原有系统 PATH</div>
+          <p class="muted small">按环境块顺序将目录放在现有 PATH 前面；重复配置只保留首次出现项。</p>
           <div v-for="(entry, index) in store.preview.paths" :key="entry.value" class="path-row">
             <span class="path-index">{{ String(index + 1).padStart(2, '0') }}</span>
             <div>
@@ -87,6 +86,7 @@ function check() {
               <small>{{ entry.block }}</small>
             </div>
           </div>
+          <div v-if="store.preview.paths.length" class="path-origin">现有 PATH</div>
           <el-empty v-if="!store.preview.paths.length" description="还没有添加 PATH 目录" :image-size="80" />
         </div>
       </section>

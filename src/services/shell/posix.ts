@@ -121,7 +121,7 @@ export function generateProfile(blocks: Block[]): string {
     '# Compatible with Bash / Zsh.',
     '',
   ];
-  // 先按块顺序写入变量和脚本，最后统一追加 PATH，避免脚本出现在最终 PATH 导出之后。
+  // 先按块顺序写入变量和脚本，最后将管理的目录放到现有 PATH 前面。
   for (const b of blocks.filter((b) => b.enabled)) {
     lines.push(`# ${b.name.replace(/[\r\n]/g, ' ')}`);
     if (b.kind === 'env') {
@@ -144,7 +144,7 @@ export function generateProfile(blocks: Block[]): string {
   }
   const paths = pathEntries(blocks);
   if (paths.length) {
-    lines.push(`export PATH="\${PATH:+$PATH:}${paths.map(({ value }) => shellValueContent(value)).join(':')}"`, '');
+    lines.push(`export PATH="${paths.map(({ value }) => shellValueContent(value)).join(':')}\${PATH:+:$PATH}"`, '');
   }
   return lines.join('\n');
 }

@@ -25,7 +25,7 @@ const emit = defineEmits<{
           Shell 子块
           <span>{{ scripts.length }}</span>
         </h3>
-        <p>按顺序执行已启用的脚本；本应用管理的 PATH 会在 Profile 末尾追加。</p>
+        <p>按顺序执行已启用的脚本；Profile 最后将应用管理的目录放在现有 PATH 前面。</p>
       </div>
       <el-button :icon="Plus" plain @click="emit('add')">添加 Shell 子块</el-button>
     </div>

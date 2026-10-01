@@ -31,7 +31,7 @@ jobs:
           APPLE_SIGNING_IDENTITY: '-'
         with:
           tagName: ${{ github.ref_name }}
-          releaseName: 环境变量管理器 ${{ github.ref_name }}
+          releaseName: EnvironmentManager ${{ github.ref_name }}
           releaseBody: |
             macOS Apple Silicon (arm64) 安装包。
 
