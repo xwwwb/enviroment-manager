@@ -1,0 +1,86 @@
+name: Release macOS arm64
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '[0-9]*'
+    paths:
+      - .github/workflows/release.yml
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag, for example 1.0.0
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Resolve release tag
+        shell: bash
+        env:
+          REQUESTED_TAG: ${{ inputs.tag }}
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          if [[ -n "$REQUESTED_TAG" ]]; then
+            tag="$REQUESTED_TAG"
+          elif [[ "$REF_TYPE" == tag ]]; then
+            tag="$REF_NAME"
+          else
+            tag="$(node -p "require('./package.json').version")"
+          fi
+          if [[ ! "$tag" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid release tag: $tag" >&2
+            exit 1
+          fi
+          echo "RELEASE_TAG=$tag" >> "$GITHUB_ENV"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ env.RELEASE_TAG }}
+
+      - name: Verify tagged version
+        run: |
+          node -e "if (require('./package.json').version !== process.env.RELEASE_TAG) process.exit(1)"
+          npm run sync:version
+          git diff --exit-code
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: ./src-tauri -> target
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APPLE_SIGNING_IDENTITY: '-'
+        with:
+          tagName: ${{ env.RELEASE_TAG }}
+          releaseName: 环境变量管理器 ${{ env.RELEASE_TAG }}
+          releaseBody: |
+            macOS Apple Silicon (arm64) 安装包。
+
+            此版本使用临时签名，未经过 Apple 公证。首次打开时可能需要在“系统设置 → 隐私与安全性”中允许运行。
+          releaseDraft: false
+          prerelease: false
+          args: --target aarch64-apple-darwin --bundles dmg
