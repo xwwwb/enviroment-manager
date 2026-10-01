@@ -5,7 +5,7 @@ import { useConfigStore } from './pinia/config';
 import { guardWindowClose } from './services/window';
 import { ElMessageBox } from 'element-plus';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
-import { appName } from './services/identity';
+import { appName, appTitle, appVersion } from './consts';
 
 const store = useConfigStore();
 const navigation = [
@@ -37,7 +37,7 @@ onUnmounted(() => releaseCloseGuard?.());
         <a class="brand" href="#/" aria-label="环境变量管理器 首页">
           <img src="/icon.png" alt="" />
           <span>
-            环境变量管理器
+            {{ appTitle }}
             <small>{{ appName }}</small>
           </span>
         </a>
@@ -61,8 +61,8 @@ onUnmounted(() => releaseCloseGuard?.());
           </div>
           <p>配置保存在这台设备上</p>
           <div class="sidebar-version">
-            <span>环境变量管理器</span>
-            <span>v1.0.0</span>
+            <span>{{ appTitle }}</span>
+            <span>v{{ appVersion }}</span>
           </div>
         </div>
       </aside>

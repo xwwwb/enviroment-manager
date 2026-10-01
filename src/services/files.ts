@@ -1,4 +1,4 @@
-import { appName } from './identity';
+import { appName } from '../consts';
 import { appDataDir, homeDir, dirname, join, normalize } from '@tauri-apps/api/path';
 import { exists, mkdir, readTextFile, writeTextFile, rename, remove, lstat } from '@tauri-apps/plugin-fs';
 

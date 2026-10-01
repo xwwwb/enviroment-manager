@@ -12,7 +12,7 @@ import {
   prepareConfigExport,
   writeConfigExport,
 } from '../services/config-transfer';
-import { configFilename } from '../services/identity';
+import { configFilename } from '../consts';
 import PageHeading from '../components/PageHeading.vue';
 
 const store = useConfigStore();

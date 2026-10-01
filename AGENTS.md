@@ -37,7 +37,7 @@
 ## 版本号维护
 
 - `package.json` 的 `version` 是应用版本号的唯一维护入口。升级版本时先更新它，再执行 `npm run sync:version`；不要单独修改其他文件中的应用版本号。
-- 同步命令把该版本写入 `src-tauri/Cargo.toml` 的 `[package].version`、`src/App.vue` 侧栏显示的版本号和 `src-tauri/tauri.conf.json` 的顶层 `version`。
+- 同步命令把该版本写入 `src-tauri/Cargo.toml` 的 `[package].version`、`src/consts.ts` 的 `appVersion` 和 `src-tauri/tauri.conf.json` 的顶层 `version`；`src/App.vue` 从 `src/consts.ts` 读取版本号。
 - `package-lock.json` 和 `src-tauri/Cargo.lock` 是依赖锁文件，其中的应用版本号由对应包管理工具维护，不作为版本号来源。
 
 ## Git 提交

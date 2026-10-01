@@ -1,4 +1,4 @@
-import { appName } from './identity';
+import { appName } from '../consts';
 import type { DeepReadonly } from 'vue';
 
 export type Shell = string;

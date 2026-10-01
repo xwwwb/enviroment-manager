@@ -21,8 +21,8 @@ const targets = [
     pattern: /(^\[package\]\r?\n(?:^(?!\[)[^\n]*\n)*?^version\s*=\s*")([^"\r\n]+)(")/gm,
   },
   {
-    file: 'src/App.vue',
-    pattern: /(<div class="sidebar-version">\s*<span>[^<]*<\/span>\s*<span>v)([^<\r\n]+)(<\/span>)/g,
+    file: 'src/consts.ts',
+    pattern: /(^export const appVersion\s*=\s*')([^'\r\n]+)(';?)/gm,
   },
   {
     file: 'src-tauri/tauri.conf.json',

@@ -1,5 +1,5 @@
 import { parseConfig, serializeConfig, type Config } from './config';
-import { configFilename } from './identity';
+import { configFilename } from '../consts';
 
 const gistTokenPlaceholder = '__GITHUB_TOKEN_NOT_BACKED_UP__';
 

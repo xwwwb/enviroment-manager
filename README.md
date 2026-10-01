@@ -44,10 +44,10 @@
 
 ## 版本维护
 
-应用版本以 `package.json` 的 `version` 为准。更新它之后执行 `npm run sync:version`，将版本同步到 Cargo 包、Tauri 配置和应用侧栏。
+应用版本以 `package.json` 的 `version` 为准。更新它之后执行 `npm run sync:version`，将版本同步到 Cargo 包、Tauri 配置和 `src/consts.ts`；应用侧栏从 `src/consts.ts` 读取版本号。
 
 ## macOS 发布
 
-推送与 `package.json` 版本相同的标签后，GitHub Actions 会在 Apple Silicon 运行器上构建 `aarch64-apple-darwin` 的 DMG，并上传到对应的 GitHub Release。已有标签可在 Actions 页面手动运行“Release macOS arm64”，输入标签名重新构建。
+推送与 `package.json` 版本相同的标签后，GitHub Actions 会在 Apple Silicon 运行器上构建 `aarch64-apple-darwin` 的 DMG，并上传到该标签对应的 GitHub Release。
 
 发布包使用临时签名，未经过 Apple 公证；macOS 首次打开时可能要求在“系统设置 → 隐私与安全性”中允许运行。

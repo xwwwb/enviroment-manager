@@ -1,5 +1,5 @@
 import type { ShellBlock as Block, Issue, ShellGenerator } from './types';
-import { appName } from '../identity';
+import { appName } from '../../consts';
 
 const keyPattern = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
 
