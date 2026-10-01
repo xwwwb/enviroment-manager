@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "环境变量管理器",
+  "mainBinaryName": "EnvironmentManager",
+  "version": "1.0.0",
+  "identifier": "com.xwwwb.env-mgr",
+  "build": {
+    "beforeDevCommand": "npx vite",
+    "devUrl": "http://127.0.0.1:1420",
+    "beforeBuildCommand": "npx vue-tsc --noEmit && npx vite build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "环境变量管理器",
+        "width": 1280,
+        "height": 840,
+        "resizable": false,
+        "maximizable": false,
+        "dragDropEnabled": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' asset: data:; connect-src ipc: http://ipc.localhost https://api.github.com; font-src 'self' data:"
+    }
+  },
+  "plugins": {
+    "fs": {
+      "requireLiteralLeadingDot": false
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/icon.png", "icons/icon.icns"],
+    "category": "DeveloperTool",
+    "shortDescription": "Bash / Zsh 环境变量管理器"
+  }
+}
